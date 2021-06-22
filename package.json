@@ -1,0 +1,25 @@
+{
+  "name": "desafiowo",
+  "version": "1.0.0",
+  "description": "Servidor node para o desafio da Wa",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PimentaLucas/desafioWa.git"
+  },
+  "author": "Lucas Pimenta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PimentaLucas/desafioWa/issues"
+  },
+  "homepage": "https://github.com/PimentaLucas/desafioWa#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-validator": "^6.12.0",
+    "mongoose": "^5.12.14"
+  }
+}
