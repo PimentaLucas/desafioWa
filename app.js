@@ -1,6 +1,15 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser');
+
 const app = express();
+
+app.use(bodyParser.json())
+const rotasLaboratorio = require('./routes/laboratorio')
+const rotasExame = require('./routes/exame')
+
+app.use('/laboratorio', rotasLaboratorio)
+app.use('/exame', rotasExame)
 
 
 

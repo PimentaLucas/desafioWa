@@ -1,6 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 
+const router = express.Router();
 const laboratorioController = require('../controllers/laboratorio');
 
 
@@ -26,8 +27,10 @@ router.post('/atualizar', [
     body('estado').trim().not().isEmpty().withMessage('Preencha o campo de estado'),
     body('cep').trim().not().isEmpty().withMessage('Preencha o campo de cep'),
     body('laboratorioId').trim().not().isEmpty().withMessage('Preencha o campo laboratorioId'),
-], laboratorioController.criarLaboratorio);
+], laboratorioController.atualizarLaboratorio);
 
 router.get('/', [
 ], laboratorioController.listarLaboratorios);
 
+
+module.exports = router;

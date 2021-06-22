@@ -1,5 +1,5 @@
 const Laboratorio = require('../models/laboratorio')
-
+const { validationResult } = require('express-validator');
 
 
 exports.criarLaboratorio = async (req, res, next) => {
@@ -33,12 +33,16 @@ exports.criarLaboratorio = async (req, res, next) => {
                 estado: estado,
                 cep: cep
             },
+            exames:[],
             status: true
         })
         const laboratorioSalvo = await laboratorio.save();
-        res.status(200).json({ laboratorioSalvo })
+        res.status(200).json({ laboratorio: laboratorioSalvo })
 
     } catch (error) {
+        if (error.statusCode == null) {
+            error.statusCode = 500
+        }
         res.status(error.statusCode).json(error.data);
 
     }
@@ -46,7 +50,7 @@ exports.criarLaboratorio = async (req, res, next) => {
 
 exports.listarLaboratorios = async (req, res, next) => {
     try {
-        const laboratorios = await Laboratorio.find({ status: true })
+        const laboratorios = await Laboratorio.find({ status: true }).populate('exames')
         res.status(200).json({ laboratorios })
     } catch (error) {
         res.status(500).json('Erro interno do servidor')
@@ -94,15 +98,20 @@ exports.atualizarLaboratorio = async (req, res, next) => {
             }
         }
         const { nome, logradouro, complemento, bairro, cep, cidade, estado, numero, laboratorioId } = req.body
-        const laboratorio = await Laboratorio.findOneAndUpdate({ _id: laboratorioId }, {
+        await Laboratorio.updateOne({ _id: laboratorioId }, {
             $set: {
                 nome: nome, 'endereco.logradouro': logradouro, 'endereco.complemento': complemento,
                 'endereco.bairro': bairro, 'endereco.cep': cep, 'endereco.cidade': cidade, 'endereco.estado': estado, 'endereco.numero': numero
             }
         })
+        const laboratorio = await Laboratorio.findById(laboratorioId)
         res.status(200).json({ laboratorio })
 
     } catch (error) {
+        if(!error.statusCode){
+            error.statusCode = 500
+            error.data = 'Id sem laboratorio associado'
+        }
         res.status(error.statusCode).json(error.data);
 
     }

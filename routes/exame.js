@@ -1,6 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
 
+const router = express.Router();
 const exameController = require('../controllers/exame');
 
 
@@ -20,3 +21,15 @@ router.post('/atualizar', [
 router.get('/', [
 ], exameController.listarExames);
 
+router.post('/associar', [
+    body('exameId').trim().not().isEmpty().withMessage('Preencha o campo de id do exame'),
+    body('laboratorioId').trim().not().isEmpty().withMessage('Preencha o campo de id do laboratorio')
+], exameController.associarExame);
+
+router.post('/desassociar', [
+    body('exameId').trim().not().isEmpty().withMessage('Preencha o campo de id do exame'),
+    body('laboratorioId').trim().not().isEmpty().withMessage('Preencha o campo de id do laboratorio')
+], exameController.dessociarExame);
+
+
+module.exports = router;
