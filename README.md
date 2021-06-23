@@ -16,3 +16,7 @@
 ### Documentação das apis
  https://documenter.getpostman.com/view/5910065/TzeaiRXt
  
+ 
+ ### Hospedagem
+ O projeto está hospedado no seguinte link https://desafio-wa.herokuapp.com/
+ 
