@@ -20,4 +20,12 @@ const exameSchema = new Schema({
     }
 })
 
+exameSchema.index({
+    nome: 'text',
+}, {
+    weights: {
+        nome: 5
+    },
+});
+
 module.exports = mongoose.model('Exame', exameSchema)

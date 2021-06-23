@@ -31,5 +31,9 @@ router.post('/desassociar', [
     body('laboratorioId').trim().not().isEmpty().withMessage('Preencha o campo de id do laboratorio')
 ], exameController.dessociarExame);
 
+router.post('/procurar', [
+    body('parametro').trim().not().isEmpty().withMessage('Preencha o campo do parametro'),
+], exameController.procurarExames);
+
 
 module.exports = router;
